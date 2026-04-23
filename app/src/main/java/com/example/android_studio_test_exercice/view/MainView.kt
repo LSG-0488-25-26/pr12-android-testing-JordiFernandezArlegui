@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
@@ -39,13 +37,13 @@ import com.example.android_studio_test_exercice.viewmodel.MainViewModel
 @Composable
 fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
     val estatSwitch by myViewModel.estatSwitch.observeAsState(true)
-    val esVegetaria by myViewModel.esVegetaria.observeAsState(true)
+    val esVegetaria by myViewModel.esVegetaria.observeAsState(false)
     val esVega by myViewModel.esVega.observeAsState(false)
     val esCarnivor by myViewModel.esCarnivor.observeAsState(true)
     val triStateStatus by myViewModel.triStateStatus.observeAsState(ToggleableState.Off)
     val selectedOption by myViewModel.selectedOption.observeAsState("Messi")
 
-    /* TODO */
+    // State variables from ViewModel
     val sliderValue by myViewModel.sliderValue.observeAsState(0f)
     val expanded by myViewModel.expanded.observeAsState(false)
     val selectedItem by myViewModel.selectedItem.observeAsState("Opció A")
@@ -58,11 +56,11 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             .fillMaxSize()
             .padding(20.dp, 60.dp)
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
+            // Switch per Wi-Fi
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -86,6 +84,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 )
             }
 
+            // Opcions de menú
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -103,9 +102,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .padding(0.dp, 10.dp)
                 ) {
-                    Text("Carnívor/a", Modifier.align(CenterVertically).fillMaxWidth(0.33f))
-                    Text("Vegetarià/na", Modifier.align(CenterVertically).fillMaxWidth(0.6f))
-                    Text("Vegà/na", Modifier.align(CenterVertically).fillMaxWidth(1f))
+                    Text("Carnívor/a", Modifier.align(Alignment.CenterVertically).fillMaxWidth(0.33f))
+                    Text("Vegetarià/na", Modifier.align(Alignment.CenterVertically).fillMaxWidth(0.6f))
+                    Text("Vegà/na", Modifier.align(Alignment.CenterVertically).fillMaxWidth(1f))
                 }
 
                 Row(
@@ -125,7 +124,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     )
                     Checkbox(
                         checked = esVegetaria,
-                        onCheckedChange = { TODO() },
+                        onCheckedChange = { myViewModel.toggleEsVegetaria() },
                         modifier = Modifier.fillMaxWidth(0.33f),
                         enabled = true,
                         colors = CheckboxDefaults.colors(
@@ -135,7 +134,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     )
                     Checkbox(
                         checked = esVega,
-                        onCheckedChange = { TODO() },
+                        onCheckedChange = { myViewModel.toggleEsVega() },
                         modifier = Modifier.fillMaxWidth(0.33f),
                         enabled = true,
                         colors = CheckboxDefaults.colors(
@@ -146,6 +145,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 }
             }
 
+            // TriState Checkbox
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text("TriState", Modifier.fillMaxWidth(), fontSize = 20.sp)
                 TriStateCheckbox(
@@ -154,6 +154,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 )
             }
 
+            // RadioButtons per Pilota d'Or
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -166,8 +167,8 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(
                             selected = selectedOption == player,
-                            onClick = { /* myViewModel.setSelectedOption(player) */ },
-                            enabled = player != "Vinicius", // Deshabilitat
+                            onClick = { myViewModel.setSelectedOption(player) },
+                            enabled = player != "Vinicius",
                             colors = RadioButtonDefaults.colors(
                                 selectedColor = Color.Black,
                                 unselectedColor = Color.LightGray
@@ -178,53 +179,60 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 }
             }
 
+            // Slider per volum
             Text("Volum: ${sliderValue.toInt()}%")
             Slider(
                 value = sliderValue,
-                onValueChange = { /* myViewModel.setSliderValue(it) */ },
+                onValueChange = { myViewModel.setSliderValue(it) },
                 valueRange = 0f..100f
             )
 
+            // Dropdown Menu
             Box(modifier = Modifier.wrapContentSize()) {
                 Text(
                     text = selectedItem,
-                    modifier = Modifier.clickable { /* myViewModel.setExpanded(true) */ }
+                    modifier = Modifier.clickable { myViewModel.setExpanded(true) }
                 )
                 DropdownMenu(
                     expanded = expanded,
-                    onDismissRequest = { /* myViewModel.setExpanded(false) */ }
+                    onDismissRequest = { myViewModel.setExpanded(false) }
                 ) {
                     listOf("Opció A", "Opció B", "Opció C").forEach { option ->
                         DropdownMenuItem(
                             text = { Text(option) },
-                            onClick = {/*
+                            onClick = {
                                 myViewModel.setSelectedItem(option)
                                 myViewModel.setExpanded(false)
-                            */}
+                            }
                         )
                     }
                 }
             }
 
+            // Search Field
             OutlinedTextField(
                 value = searchText,
-                onValueChange = { /* myViewModel.setSearchText(it) */ },
-                label = Text("Buscar..."),
-                modifier = Modifier
+                onValueChange = { myViewModel.setSearchText(it) },
+                label = { Text("Buscar...") },
+                modifier = Modifier.fillMaxWidth()
             )
-            Button(onClick = { /* myViewModel.performSearch() */ }) {
+
+            Button(onClick = { myViewModel.performSearch() }) {
                 Text("Buscar")
             }
 
+            // Snackbar indicator
             if (showSnackbar) {
                 Text(
                     text = "Acció completada!",
-                    color = Color.Green
+                    color = Color.Green,
+                    modifier = Modifier.padding(8.dp)
                 )
             }
 
+            // Toggle Button
             Button(
-                onClick = { /* myViewModel.toggle() */ },
+                onClick = { myViewModel.toggle() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (toggleState) Color.Green else Color.Red
                 )
