@@ -165,7 +165,7 @@ class MainViewModelTest {
         assertEquals("Android", viewModel.searchText.value)
     }
 
-    // Tests per performSearch - NOMÉS EL TEST AMB TEXT BUIT (NO USA HANDLER)
+    // Tests per performSearch
     @Test
     fun testPerformSearch_withEmptyText_doesNotShowSnackbar() {
         viewModel.setSearchText("")
@@ -173,12 +173,14 @@ class MainViewModelTest {
         assertFalse(viewModel.showSnackbar.value ?: false)
     }
 
-    // Tests per toggle - NOMÉS VERIFICAR VALOR INICIAL (NO CRIDA TOGGLE)
+    // Tests per toggle (només valors inicials, sense cridar toggle)
     @Test
     fun testToggle_initialValueIsFalse() {
         assertEquals(false, viewModel.toggleState.value)
     }
 
-    // NO incloguis testToggle_changesStateValue perquè crida toggle()
-    // NO incloguis testToggle_showsSnackbar perquè crida toggle()
+    @Test
+    fun testShowSnackbar_initialValueIsFalse() {
+        assertEquals(false, viewModel.showSnackbar.value ?: false)
+    }
 }
