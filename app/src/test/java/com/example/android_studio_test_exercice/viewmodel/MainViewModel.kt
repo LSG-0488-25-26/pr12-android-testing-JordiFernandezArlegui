@@ -181,6 +181,9 @@ class MainViewModelTest {
         viewModel.setSearchText("Kotlin")
         viewModel.performSearch()
 
+        // Esperar que s'executi el Handler
+        Thread.sleep(100)  // 100 milisegons
+
         assertTrue(viewModel.showSnackbar.value ?: false)
     }
 
@@ -202,6 +205,10 @@ class MainViewModelTest {
     @Test
     fun testToggle_showsSnackbar() {
         viewModel.toggle()
+
+        // Esperar que s'executi el Handler
+        Thread.sleep(100)
+
         assertTrue(viewModel.showSnackbar.value ?: false)
     }
 }
