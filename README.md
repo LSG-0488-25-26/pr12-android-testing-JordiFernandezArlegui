@@ -45,38 +45,29 @@ dropdownAnchorExistsAndIsClickable - Prova que l'anchor del Dropdown es clickabl
 searchFieldAndButtonWork - Prova el camp de cerca i el boto
 toggleButtonExistsAndIsClickable - Prova que el Toggle Button existeix i es clickable
 
-Captures de Pantalla
+Captura de Pantalla
+
+<img width="902" height="309" alt="image" src="https://github.com/user-attachments/assets/3ce8c7f2-52fd-469e-a73b-abe1dab126bd" />
+
 
 Aplicacio en funcionament
-
-[screenshots/app_mainview.png]
+Ok
 
 Unit Tests - Resultats
-
-[screenshots/unit_tests_results.png]
+Ok
 
 UI Tests - Resultats
-
-[screenshots/ui_tests_results.png]
+Ok
 
 Execucio UI Tests en dispositiu real
-
-[screenshots/ui_tests_device.png]
+Ok
 
 Video d'Execucio dels Tests
 
 https://github.com/user-attachments/assets/7ec4006b-d9c8-4c67-819e-e11327ec36b6
 
-Nota: Els fitxers multimedia es troben dins la carpeta /screenshots
-
 Tecnologies Utilitzades
 
-Llenguatge: Kotlin
-UI Framework: Jetpack Compose
-Arquitectura: MVVM
-Gestio d'estat: LiveData
-Testing Unitary: JUnit4 amb InstantTaskExecutorRule i Robolectric
-Testing Instrumental: Compose Test Rules amb Espresso
 
 Dependencies Principals
 
