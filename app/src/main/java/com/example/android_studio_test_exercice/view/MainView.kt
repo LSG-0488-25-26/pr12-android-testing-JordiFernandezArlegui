@@ -44,10 +44,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
     val triStateStatus by myViewModel.triStateStatus.observeAsState(ToggleableState.Off)
     val selectedOption by myViewModel.selectedOption.observeAsState("Messi")
 
-    // State variables from ViewModel
     val sliderValue by myViewModel.sliderValue.observeAsState(0f)
     val expanded by myViewModel.expanded.observeAsState(false)
-    val selectedItem by myViewModel.selectedItem.observeAsState("Opció A")
+    val selectedItem by myViewModel.selectedItem.observeAsState("Opcio A")
     val searchText by myViewModel.searchText.observeAsState("")
     val showSnackbar by myViewModel.showSnackbar.observeAsState(false)
     val toggleState by myViewModel.toggleState.observeAsState(false)
@@ -66,7 +65,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Activar Wi-Fi: ",
+                    text = "Activar Wi-Fi:",
                     modifier = Modifier
                         .fillMaxWidth(0.6f)
                         .padding(0.dp, 10.dp),
@@ -87,7 +86,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 )
             }
 
-            // Opcions de menú
+            // Opcions de menu
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -95,7 +94,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     .padding(0.dp, 20.dp)
             ) {
                 Text(
-                    text = "Opcions de menú:",
+                    text = "Opcions de menu:",
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = 25.sp
                 )
@@ -105,9 +104,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .padding(0.dp, 10.dp)
                 ) {
-                    Text("Carnívor/a", Modifier.align(Alignment.CenterVertically).fillMaxWidth(0.33f))
-                    Text("Vegetarià/na", Modifier.align(Alignment.CenterVertically).fillMaxWidth(0.6f))
-                    Text("Vegà/na", Modifier.align(Alignment.CenterVertically).fillMaxWidth(1f))
+                    Text("Carnivor/a", Modifier.align(Alignment.CenterVertically).fillMaxWidth(0.33f))
+                    Text("Vegetaria/na", Modifier.align(Alignment.CenterVertically).fillMaxWidth(0.6f))
+                    Text("Vega/na", Modifier.align(Alignment.CenterVertically).fillMaxWidth(1f))
                 }
 
                 Row(
@@ -179,7 +178,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                             selected = selectedOption == player,
                             onClick = { myViewModel.setSelectedOption(player) },
                             enabled = player != "Vinicius",
-                            modifier = Modifier.testTag("radio_$player"),
+                            modifier = Modifier.testTag("radio_${player.replace(" ", "_")}"),
                             colors = RadioButtonDefaults.colors(
                                 selectedColor = Color.Black,
                                 unselectedColor = Color.LightGray
@@ -211,7 +210,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     expanded = expanded,
                     onDismissRequest = { myViewModel.setExpanded(false) }
                 ) {
-                    listOf("Opció A", "Opció B", "Opció C").forEach { option ->
+                    listOf("Opcio A", "Opcio B", "Opcio C").forEach { option ->
                         DropdownMenuItem(
                             text = { Text(option) },
                             onClick = {
@@ -243,7 +242,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             // Snackbar indicator
             if (showSnackbar) {
                 Text(
-                    text = "Acció completada!",
+                    text = "Accio completada!",
                     color = Color.Green,
                     modifier = Modifier.padding(8.dp)
                 )
