@@ -1,7 +1,8 @@
-package com.example.android_studio_test_exercice.viewmodel
+package com.example.android_studio_test_exercice
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.compose.ui.state.ToggleableState
+import com.example.android_studio_test_exercice.viewmodel.MainViewModel
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
